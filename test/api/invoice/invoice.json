@@ -1,0 +1,211 @@
+{
+  "invoice/settle/{{ad_id}}": [
+    {
+      "method": "GET",
+      "input": {
+        "query": {
+          "start": "2016-07-01",
+          "end": "2016-07-31"
+        }
+      },
+      "output": {
+        "list": {
+          "type": "array",
+          "item": {
+            "ad_id": "^[0-9a-f]{32}$",
+            "ad_name": "string",
+            "channel_id": "string",
+            "channel": "number",
+            "alias": "string",
+            "left_transfer_notice": {
+              "type": "array",
+              "item": {
+                "date": "date",
+                "transfer": "int"
+              }
+            },
+            "ad_notice": {
+              "type": "array",
+              "item": {
+                "date": "date",
+                "transfer": "int",
+                "cpa": "int"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "invoice/init": [
+    {
+      "method": "GET",
+      "input": {
+        "query": {
+          "adids": {
+            "range": [
+              {
+                "start": "2016-07-01",
+                "end": "2016-07-31",
+                "ad_ids": ["af4377a5959fb6c7a90d8ee75a3fc062"]
+              }
+            ]
+          }
+        }
+      },
+      "output": {
+        "invoice": {
+          "type": "object",
+          "fields": {
+            "agreement_number": "string",
+            "company": "string",
+            "apply_time": "date",
+            "start": "string",
+            "type": "int",
+            "content_type": "int",
+            "applicant": "string",
+            "sub_status": "int",
+            "agreement_info": {
+              "type": "object",
+              "fields": {
+                "company": "string",
+                "business_license_record": "number",
+                "company_short": "string",
+                "cycle": "string",
+                "ad_name": "string",
+                "sign_date": "date",
+                "rmb": "string",
+                "archive": "number",
+                "comment": "string",
+                "start": "date",
+                "end": "date",
+                "over": "boolean"
+              }
+            },
+            "ad_notice": {
+              "type": "array",
+              "fields": {
+                "ad_name": "string",
+                "cid": "string",
+                "notice": {
+                  "type": "array",
+                  "item": {
+                    "date": "date",
+                    "transfer": "int",
+                    "cpa": "int"
+                  }
+                },
+                "left_transfer_notice": {
+                  "type": "array",
+                  "item": {
+                    "date": "date",
+                    "transfer": "int"
+                  }
+                }
+              }
+            },
+            "products": {
+              "type": "array",
+              "item": {
+                "quote_start_date": "date",
+                "quote_end_date": "date",
+                "quote_rmb": "number",
+                "income": "number",
+                "cpa": "number",
+                "start": "date",
+                "end": "date",
+                "ad_name": "string",
+                "cid": "string",
+                "id": "number",
+                "ad_app_type": "number",
+                "ad_id": "^[0-9a-f]{32}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "input": {
+        "json": {
+          "header": "史努克广告（上海）有限公司",
+          "type": "0",
+          "content_type": "0",
+          "pay_charger": "cson",
+          "pay_telephone": "13500000000",
+          "pay_address": "广州",
+          "start": "2016-07",
+          "apply_time": "2016-09-05",
+          "charger": "",
+          "accept_telephone": "13500000000",
+          "accept_address": "广州",
+          "agreement_number": "DL-BU-2016-0914",
+          "attachment": "",
+          "comment": "",
+          "income": "100",
+          "income_first": "100",
+          "attachment_desc": "",
+          "reason": "测试",
+          "kind": "0",
+          "ios_income": "100",
+          "ad_income": "100",
+          "sub_status": "2",
+          "products": [
+            {
+              "ad_app_type": "1",
+              "ad_id": "af4377a5959fb6c7a90d8ee75a3fc062",
+              "ad_name": "零钱罐",
+              "cid": "cpc 补效果",
+              "cpa": "100",
+              "cpa_after": "100",
+              "end": "2016-07-31",
+              "id": "1022279",
+              "income": "1000",
+              "income_after": "1000",
+              "money_cut": "0",
+              "quote_end_date": "2016-07-31",
+              "quote_rmb": "10",
+              "quote_rmb_after": "10",
+              "quote_start_date": "2016-07-01",
+              "rate": "0",
+              "remark": "",
+              "start": "2016-07-01"
+            }
+          ]
+        }
+      },
+      "output": {
+        "code": 0,
+        "msg": "string",
+        "invoice": {
+          "type": "object",
+          "fields": {
+            "id": "number"
+          }
+        }
+      }
+    }
+  ],
+  "invoice/{{invoice_id}}": [
+    {
+      "method": "PATCH",
+      "input": {
+        "json": {
+          "header": "史努克广告（上海）有限公司8"
+        }
+      },
+      "output": {
+        "code": 0,
+        "msg": "string",
+        "invoice": {
+          "type": "object",
+          "fields": {
+            "id": "int",
+            "header": "string"
+          }
+        }
+      }
+    }
+  ]
+}

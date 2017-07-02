@@ -1,0 +1,118 @@
+{
+  "diy/": [
+    {
+      "method": "GET",
+      "output": {
+        "list": {
+          "type": "array",
+          "item": {
+            "id": "^[0-9a-f]{32}$",
+            "ad_name": "string",
+            "start_time": "datetime",
+            "end_time": "datetime",
+            "total_num": "number",
+            "status": "number",
+            "create_time": "datetime"
+          }
+        },
+        "numbers": {
+          "type": "object",
+          "fields": {
+            "total": "number",
+            "wait": "number",
+            "in_review": "number",
+            "success": "number",
+            "failed": "number"
+          }
+        }
+      }
+    },
+    {
+      "comment": "测试创建投放计划",
+      "method": "POST",
+      "input": {
+        "json": {
+          "ad_name": "自动测试投放计划",
+          "ad_url": "https://itunes.apple.com/cn/app/ai-tou-gu-chao-gu-gu-piao-li-cai/id935173185?mt=8",
+          "total_num": "1000",
+          "quote_rmb": "1.5",
+          "put_ipad": "2",
+          "start_time-c1": "2016-07-20 00:00:00",
+          "end_time-c1": "2016-07-21 00:00:00",
+          "keyword-c1": "自动",
+          "num-c1": "500",
+          "start_time-c2": "2016-07-20 00:00:00",
+          "end_time-c2": "2016-07-21 00:00:00",
+          "keyword-c2": "测试",
+          "num-c2": "500"
+        }
+      },
+      "response": {
+        "statusCode": 201
+      },
+      "output": {
+        "code": 0,
+        "msg": "string",
+        "data": {
+          "type": "object",
+          "fields": {
+            "id": "^[0-9a-f]{32}$"
+          }
+        }
+      }
+    }
+  ],
+  "diy/{{diy_id}}": [
+    {
+      "method": "GET",
+      "output": {
+        "data": {
+          "type": "object",
+          "fields": {
+            "id": "^[0-9a-f]{32}$",
+            "ad_name": "string",
+            "ad_url": "url",
+            "put_ipad": "number",
+            "start_time": "datetime",
+            "end_time": "datetime",
+            "status": "number",
+            "total_num": "number",
+            "plans": {
+              "type": "array",
+              "item": {
+                "start_time": "datetime",
+                "end_time": "datetime",
+                "keyword": "string",
+                "num": "int"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "input": {
+        "json": {
+          "quote_rmb": "1.8"
+        }
+      },
+      "output": {
+        "code": 0,
+        "msg": "string",
+        "data": {
+          "type": "object",
+          "fields": {
+            "quote_rmb": "1.8"
+          }
+        }
+      }
+    },
+    {
+      "method": "DELETE",
+      "output": {
+        "code": 0
+      }
+    }
+  ]
+}

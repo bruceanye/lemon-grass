@@ -1,0 +1,6 @@
+INSERT INTO `{{table}}`
+(`ad_id`,`income`,`transfer`,`cpa`,`quote_rmb`,`real_price`,`step_rmb`,`out`,`rmb_out`,`task_out`,`publisher_out`,`activity_out`,`activity_income`,`cut`,`happy_lock_income`,`happy_lock_rmb`,`happy_lock_transfer`,`publisher_transfer`,`publisher_cpa`,`publisher_income`,`publisher_cut`,`profit`,`profit_ratio`,`beprice`,`owner`,`quoted_transfer`,`click`,`cpc`,`cpc_quote`,`cpc_income`)
+VALUES
+{{#list}}
+  ('{{ad_id}}','{{income}}','{{transfer}}','{{cpa}}','{{#quote_rmb}}{{min}},{{max}}{{/quote_rmb}}','{{real_price}}','{{#step_rmb}}{{min}},{{max}}{{/step_rmb}}','{{out}}','{{rmb_out}}','{{task_out}}','{{publisher_out}}','{{activity_out}}','{{activity_income}}','{{cut}}','{{happy_lock_income}}','{{happy_lock_rmb}}','{{happy_lock_transfer}}','{{publisher_transfer}}','{{publisher_cpa}}','{{publisher_income}}','{{publisher_cut}}','{{profit}}','{{profit_ratio}}','{{beprice}}','{{owner}}','{{quoted_transfer}}','{{click}}','{{cpc}}','{{#cpc_quote}}{{min}},{{max}}{{/cpc_quote}}','{{cpc_income}}'){{^last}},{{/last}}
+{{/list}}

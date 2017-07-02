@@ -1,0 +1,4 @@
+渠道名,渠道全称,渠道类型,广告名,渠道号,创建时间,状态,平台,广告类型,扣分,排序,激活支出,深度任务支出,收入,CPA,渠道CPA,单价,实际价格,毛利润,毛利润率(%),结算率(%),商务负责人,商务执行人,是否回款,回款时间,开票时间,开票金额,实际回款金额,备注
+{{#list}}
+{{channel}},{{full_name}},{{channel_type}},{{ad_name}},{{cid}},{{create_time}},{{status}},{{ad_app_type}},{{label}},{{step_rmb}},{{seq_rmb}},{{rmb_out}},{{task_out}},{{income}},{{transfer}},{{cpa}},{{quote_rmb}},{{real}},{{profit}},{{profit_ratio}},{{ratio}},{{owner}},{{execute_owner}},{{payment_status}},{{paid_time}},{{invoice_time}},{{invoice_rmb}},{{real_rmb}},{{comment}}
+{{/list}}

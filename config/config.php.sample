@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: meathill
+ * Date: 14/11/17
+ * Time: 下午3:40
+ */
+
+define('DEBUG', 4); // 4为小芳的id
+define('BASE', '');
+define('UPLOAD_BASE', ''); // 上传文件保存起始路径
+define('UPLOAD_URL', 'http://ad-diy.com/'); // 上传文件访问起始路径
+define('TEMP', '/var/tmp/'); // 临时文件存放处
+define('PROJECT_NAME', 'diy'); // 项目名称
+
+define('OP_MAIL', 'lujia.zhai@dianjoy.com'); // 运营的公用邮箱
+define('MAIL_PASSWORD', 'abcdef123456'); // 通知邮箱的登录密码
+define('BAOBEI_PASSWORD', '123456abcdef'); // 报备邮箱的登录密码
+
+define('LOCAL_FILE', '~http://ad\-diy\.com/~');
+define('ALLOW_ORIGIN', 'http://localhost:63300');
+
+define('SALT', '123456abcdef');
+define('BAOBEI_SALT', 'abcdef123456'); // 验证报备邮件的盐
+define('TAX_RATIO', 1);
+
+define('INNER_SERVICE', 'http://www.dianjoy.com/inner_service/');
+
+// ES 服务器群
+const ES_HOSTS = ['es.dianjoy.cn:80'];

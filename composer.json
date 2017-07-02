@@ -1,0 +1,44 @@
+{
+  "name": "dianjoy/lemon-grass",
+  "description": "a backend provide RESTful api",
+  "require": {
+    "mustache/mustache": "^2.9",
+    "dianjoy/macaw": "dev-master",
+    "phpmailer/phpmailer": "^5.2",
+    "rodneyrehm/plist": "dev-master",
+    "phpoffice/phpexcel": "^1.0",
+    "elasticsearch/elasticsearch": "^5.0"
+  },
+  "require-dev": {
+    "meathill/friday": "dev-master"
+  },
+  "license": "MIT",
+  "version": "0.4.0",
+  "authors": [
+    {
+      "name": "Meathill",
+      "email": "lujia.zhai@dianjoy.com"
+    },
+    {
+      "name": "Woddy He",
+      "email": "woddy.he@dianjoy.com"
+    },
+    {
+      "name": "Csonshen",
+      "email": "sheng.chen@dianjoy.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "app"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}

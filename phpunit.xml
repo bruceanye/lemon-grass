@@ -1,0 +1,35 @@
+<phpunit bootstrap="test/bootstrap.php" stopOnError="true" stopOnFailure="true" debug="true">
+  <php>
+  </php>
+  <testsuites name="tools">
+    <directory>test/unit/</directory>
+    <testsuite name="apk-parser">
+      <file>parser/ApkParserTest.php</file>
+      <file>parser/ApkParserTest_string.php</file>
+    </testsuite>
+    <testsuite name="utils">
+      <file>UtilsTest.php</file>
+    </testsuite>
+  </testsuites>
+  <testsuites name="base">
+    <directory>test/unit/</directory>
+    <testsuite name="Model">
+      <file>ModelTest.php</file>
+    </testsuite>
+    <testsuite name="Collection">
+      <file>CollectionTest.php</file>
+    </testsuite>
+  </testsuites>
+  <testsuites>
+    <directory>test/unit/</directory>
+    <testsuite name="mail">
+      <file>MailerTest.php</file>
+      <file>BaobeiMailerTest.php</file>
+    </testsuite>
+  </testsuites>
+  <testsuites>
+    <testsuite name="daily">
+      <file>test/unit/daily/DailyStatTest.class.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

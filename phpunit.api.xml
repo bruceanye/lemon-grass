@@ -1,0 +1,28 @@
+<phpunit bootstrap="test/bootstrap.api.php"
+         stopOnError="true"
+         stopOnFailure="true"
+         debug="true"
+         timeoutForSmallTests="1"
+         timeoutForMediumTests="15"
+         timeoutForLargeTests="60">
+  <php>
+  </php>
+  <testsuites>
+    <testsuite name="ad">
+      <directory>test/api/ad/</directory>
+      <file>ADTest.php</file>
+    </testsuite>
+    <testsuite name="diy">
+      <directory>test/api/diy/</directory>
+    </testsuite>
+    <testsuite name="invoice">
+      <directory>test/api/invoice/</directory>
+      <file>InvoiceTest.php</file>
+    </testsuite>
+    <testsuite name="cp">
+      <directory>test/api/cp/</directory>
+      <file>AndroidUnion_ADTest.php</file>
+      <file>iOS_CP_ADTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

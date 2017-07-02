@@ -1,0 +1,56 @@
+{
+  "ad/": [
+    {
+      "method": "GET",
+      "output": {
+        "list": {
+          "type": "array",
+          "item": {
+            "ad_app_type": "number",
+            "ad_desc": "string",
+            "ad_lib": "string",
+            "ad_name": "string",
+            "ad_sdk_type": "string",
+            "ad_shoot": "^(upload/.*,?)*$",
+            "ad_size": "\\d\\.\\d{2}[MK]B",
+            "ad_type": "number",
+            "ad_url": "string",
+            "agreement_id": "number",
+            "aid": "string",
+            "cate": "number",
+            "channel": "string",
+            "cid": "string",
+            "cm_others": "array",
+            "company": "string",
+            "company_short": "string",
+            "create_time": "datetime",
+            "cycle": "number",
+            "execute_owner": "string",
+            "feedback": "number",
+            "id": "^[a-f0-9]{32}$",
+            "job_num":  "int",
+            "job_time": "datetime",
+            "net_type": "number",
+            "num": "number",
+            "on_off": "array",
+            "op": "string",
+            "others": "string",
+            "owner": "number",
+            "pack_name": "string",
+            "pic_path": "^upload/.*$",
+            "province_type": "number",
+            "pwd": "string",
+            "quote_rmb": "number",
+            "ratio": "number",
+            "reject": "array",
+            "search_flag": "number",
+            "status": "^[0-5]$",
+            "status_time": "datetime",
+            "url": "string",
+            "user": "string"
+          }
+        }
+      }
+    }
+  ]
+}
