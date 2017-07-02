@@ -27,4 +27,4 @@ define('TAX_RATIO', 1);
 define('INNER_SERVICE', 'http://www.dianjoy.com/inner_service/');
 
 // ES 服务器群
-const ES_HOSTS = ['es.dianjoy.cn:80'];
+const ES_HOSTS = '';
