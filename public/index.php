@@ -41,4 +41,6 @@ if (Auth::is_cp()) {
 
   AdminLogger::log($_SESSION['id'], AdminLogger::DIY);
 }
+
+
 Macaw::dispatch();
