@@ -3,6 +3,7 @@
 
 # repo
 vendor
+app/connector
 
 # build
 
