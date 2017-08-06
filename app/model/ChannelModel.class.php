@@ -242,7 +242,8 @@ class ChannelModel extends Base {
     public function save_new(array $attr = null) {
         $DB = $this->get_write_pdo();
 
-        $attr = Utils::array_pick($this->attributes, self::$CHANNEL_ATTR);
+        $attr = Utils::array_pick($attr, self::$CHANNEL_ATTR);
+
         SQLHelper::insert($DB, self::$CHANNEL_TABLE, $attr);
         return true;
     }
