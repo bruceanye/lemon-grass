@@ -15,6 +15,7 @@ use diy\model\ChannelCollection;
 use diy\model\ChannelModel;
 use diy\model\DiyUserModel;
 use diy\service\AD;
+use diy\service\Channel;
 use diy\utils\Utils;
 use Exception;
 use SQLHelper;
@@ -112,6 +113,14 @@ class ChannelController extends BaseController {
         'channel_types' => ChannelModel::$TYPE,
       )
     ));
+  }
+
+  public function get_new_list() {
+      $channel = new Channel();
+      $list = $channel->get_base_channel();
+      $this->output(array(
+         'list' => $list
+      ));
   }
 
   public function get_channel_prepaid($id) {

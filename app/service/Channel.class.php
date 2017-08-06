@@ -117,6 +117,15 @@ class Channel extends Base {
     }, $channels );
   }
 
+  public function get_base_channel() {
+      $DB = $this->get_read_pdo();
+      $sql = "SELECT `id`,`company_name`,`user`,`address`,`email`,`telephone`,`comment`
+              FROM `t_channel`";
+      $state = $DB->prepare($sql);
+      $state->execute([]);
+      return $state->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   public function get_channel_num( $filters ) {
     $DB = $this->get_read_pdo();
     list($conditions, $params) = $this->parse_filter($filters);

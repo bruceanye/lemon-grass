@@ -21,3 +21,6 @@ Macaw::get(BASE . 'channel/(:any)/prepaid/', 'diy\controller\ChannelController@g
 Macaw::get(BASE . 'channel/(\d+)/feedback/', 'diy\controller\ChannelController@getADs');
 Macaw::options(BASE . 'channel/(\d+)/feedback/(:any)', 'diy\controller\BaseController@on_options');
 Macaw::patch(BASE . 'channel/(\d+)/feedback/(:any)', 'diy\controller\ChannelController@updateFeedback');
+
+Macaw::options(BASE . 'jy_channel/(:any)/', 'diy\controller\BaseController@on_options');
+Macaw::get(BASE . 'jy_channel/list/', 'diy\controller\ChannelController@get_new_list');
