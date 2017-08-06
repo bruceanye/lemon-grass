@@ -27,8 +27,9 @@ class ChannelModel extends Base {
   static $CHANNEL_TABLE = 't_channel';
   static $TYPE = array('无', 'CP', '网盟', '个人', '换量', '开发者', '外放渠道', '其他');
   static $CRM_TARGET = array('score_nums','score_feedback','score_cycle','payment_rate','cut_rate','frequency');
+  static $CHANNEL_ATTR = array('address','comment','user','company_name','email');
 
-  static $FEEDBACK_SCORES = array(
+    static $FEEDBACK_SCORES = array(
     '1' => 15,
     '2' => 20,
     '3' => 20,
@@ -237,6 +238,14 @@ class ChannelModel extends Base {
     $this->id = $this->attributes['id'] = SQLHelper::$lastInsertId;
     return true;
   }
+
+    public function save_new(array $attr = null) {
+        $DB = $this->get_write_pdo();
+
+        $attr = Utils::array_pick($this->attributes, self::$CHANNEL_ATTR);
+        SQLHelper::insert($DB, self::$CHANNEL_TABLE, $attr);
+        return true;
+    }
 
   public function update(array $attr = null) {
     $attr = $this->validate($attr);

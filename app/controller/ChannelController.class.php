@@ -82,6 +82,24 @@ class ChannelController extends BaseController {
     ));
   }
 
+  public function create_new() {
+      $attr = $this->get_post_data();
+      $channel = new ChannelModel($attr);
+
+      try {
+          $channel->save_new();
+      } catch ( Exception $e) {
+          $this->exit_with_error($e->getCode(), $e->getMessage(), 400);
+      }
+
+      $this->output(array(
+          'code' => 201,
+          'msg' => '创建成功',
+          'channel' => $channel->attributes,
+      ));
+  }
+
+
   public function get_channel_info( $id ) {
     $channel = new ChannelModel(['id' => $id]);
     $channel->fetch();
