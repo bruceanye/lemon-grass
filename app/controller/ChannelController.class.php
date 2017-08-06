@@ -18,6 +18,7 @@ use diy\service\AD;
 use diy\service\Channel;
 use diy\utils\Utils;
 use Exception;
+use function MongoDB\BSON\toJSON;
 use SQLHelper;
 
 class ChannelController extends BaseController {
@@ -115,12 +116,28 @@ class ChannelController extends BaseController {
     ));
   }
 
-  public function get_new_list() {
+  public function get_list_new() {
       $channel = new Channel();
       $list = $channel->get_base_channel();
       $this->output(array(
          'list' => $list
       ));
+  }
+
+  public function update_new($id, $attr = null) {
+      $channel = new ChannelModel(['id' => $id]);
+      $attr = $attr ? $attr : $this->get_post_data();
+      try {
+          $channel->update_channel($attr);
+      } catch (Exception $e) {
+          $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
+      }
+
+      $this->output([
+          'code' => 0,
+          'msg' => '修改广告主信息成功',
+          'channel' => $channel->toJSON(),
+      ]);
   }
 
   public function get_channel_prepaid($id) {

@@ -24,6 +24,7 @@ use SQLHelper;
  */
 class ChannelModel extends Base {
   static $TABLE = 't_channel_map';
+  static $CHANNEL_TABLE = 't_channel';
   static $TYPE = array('无', 'CP', '网盟', '个人', '换量', '开发者', '外放渠道', '其他');
   static $CRM_TARGET = array('score_nums','score_feedback','score_cycle','payment_rate','cut_rate','frequency');
 
@@ -258,6 +259,21 @@ class ChannelModel extends Base {
     $this->attributes = array_merge($this->attributes, $attr);
     return $this;
   }
+
+    public function update_channel(array $attr = null) {
+        $attr = $this->validate($attr);
+        if (!$attr) {
+            return $this;
+        }
+
+        $DB = $this->get_write_pdo();
+        $result = SQLHelper::update($DB, self::$CHANNEL_TABLE, $attr, $this->id, false);
+        if ($result === false) {
+            throw new Exception('更新广告主信息失败。', 13);
+        }
+        $this->attributes = array_merge($this->attributes, $attr);
+        return $this;
+    }
 
   public function is_full_name_exists($full_name) {
     $DB = $this->get_read_pdo();
