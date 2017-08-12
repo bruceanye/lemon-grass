@@ -87,7 +87,7 @@ class ChannelController extends BaseController {
       $channel = new ChannelModel($attr);
 
       try {
-          $channel->save_new();
+          $channel->save_new($attr);
       } catch ( Exception $e) {
           $this->exit_with_error($e->getCode(), $e->getMessage(), 400);
       }
@@ -95,7 +95,7 @@ class ChannelController extends BaseController {
       $this->output(array(
           'code' => 201,
           'msg' => '创建成功',
-          'channel' => $channel->attributes,
+          'channel' => $attr,
       ));
   }
 
