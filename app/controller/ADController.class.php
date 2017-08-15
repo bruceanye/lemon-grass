@@ -121,6 +121,10 @@ class ADController extends BaseController {
     }
   }
 
+  public function get_list_new() {
+      $this->output([]);
+  }
+
   /**
    * 取广告列表
    * @author Meathill
@@ -454,6 +458,10 @@ class ADController extends BaseController {
     ));
   }
 
+  public function create_new() {
+
+  }
+
   /**
    * 创建新广告
    * @author Meathill
@@ -473,10 +481,12 @@ class ADController extends BaseController {
       $this->exit_with_error($ad->error);
     }
     try {
-      $ad->save();
+      $result = $ad->save();
     } catch ( ADException $e) {
       $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
     }
+
+    $this->output($result);
     $client_email = $attr['file-email'];
     $replace_id = $ad->replace;
 

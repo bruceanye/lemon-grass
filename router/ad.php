@@ -56,3 +56,10 @@ Macaw::get(BASE . 'payment/', 'diy\controller\PaymentController@get_list');
 Macaw::get(BASE . 'payment/init_date/', 'diy\controller\PaymentController@init_date');
 
 Macaw::get(BASE . 'payment/init_send_email/', 'diy\controller\PaymentController@init_send_email');
+
+
+Macaw::get(BASE . 'jy_ad/', 'diy\controller\ADController@get_list_new');
+
+Macaw::options(BASE . 'jy_ad/', 'diy\controller\ADController@on_options');
+
+Macaw::post(BASE . 'jy_ad/', 'diy\controller\ADController@create_new');

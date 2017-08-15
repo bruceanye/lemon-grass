@@ -94,6 +94,7 @@ class ADModel extends Base {
     $this->save_provinces( $provinces );
 
     // 插入广告信息
+      return $attr;
     $this->save_info( $DB, $attr );
 
     // 插入消费记录
@@ -339,6 +340,7 @@ class ADModel extends Base {
    * @throws ADException
    */
   protected function save_info( $DB, $attr ) {
+      return $attr;
     $check = SQLHelper::insert( $DB, self::$T_INFO, $attr );
     if ( ! $check ) {
       $e        = new ADException( '插入广告失败', 20 );
