@@ -38,6 +38,7 @@ if (Auth::is_cp()) {
   require '../router/notice.php';
   require '../router/channel.php';
   require '../router/invoice.php';
+  require '../router/client.php';
 
   AdminLogger::log($_SESSION['id'], AdminLogger::DIY);
 }
