@@ -22,9 +22,9 @@ Macaw::get(BASE . 'channel/(\d+)/feedback/', 'diy\controller\ChannelController@g
 Macaw::options(BASE . 'channel/(\d+)/feedback/(:any)', 'diy\controller\BaseController@on_options');
 Macaw::patch(BASE . 'channel/(\d+)/feedback/(:any)', 'diy\controller\ChannelController@updateFeedback');
 
-Macaw::options(BASE . 'jy_channel/(:any)', 'diy\controller\BaseController@on_options');
-Macaw::patch(BASE . 'jy_channel/(:any)', 'diy\controller\ChannelController@update_new');
-
-Macaw::options(BASE . 'jy_channel/', 'diy\controller\BaseController@on_options');
-Macaw::get(BASE . 'jy_channel/', 'diy\controller\ChannelController@get_list_new');
-Macaw::post(BASE . 'jy_channel/', 'diy\controller\ChannelController@create_new');
+//Macaw::options(BASE . 'jy_channel/(:any)', 'diy\controller\BaseController@on_options');
+//Macaw::patch(BASE . 'jy_channel/(:any)', 'diy\controller\ChannelController@update_new');
+//
+//Macaw::options(BASE . 'jy_channel/', 'diy\controller\BaseController@on_options');
+//Macaw::get(BASE . 'jy_channel/', 'diy\controller\ChannelController@get_list_new');
+//Macaw::post(BASE . 'jy_channel/', 'diy\controller\ChannelController@create_new');

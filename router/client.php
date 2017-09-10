@@ -7,6 +7,6 @@
  */
 use dianjoy\Macaw\Macaw;
 
-Macaw::options(BASE . 'jy_client/', 'diy\controller\BaseController@on_options');
-Macaw::get(BASE . 'jy_client/', 'diy\controller\ClientController@get_list');
-Macaw::post(BASE . 'jy_client/', 'diy\controller\ClientController@create');
+Macaw::options(BASE . 'j_client/', 'diy\controller\BaseController@on_options');
+Macaw::get(BASE . 'j_client/', 'diy\controller\ClientController@get_list');
+Macaw::post(BASE . 'j_client/', 'diy\controller\ClientController@create');

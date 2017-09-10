@@ -11,6 +11,8 @@ namespace diy\model;
 
 use diy\service\Agreement;
 use PDO;
+use diy\utils\Utils;
+use SQLHelper;
 
 /**
  * @property string company
@@ -35,5 +37,14 @@ class AgreementModel extends Base {
     $service = new Agreement();
     $attr = $service->get_agreements([ 'id' => $this->id], PDO::FETCH_ASSOC)[0];
     $this->attributes = array_merge($this->attributes, $attr);
+  }
+
+  public function save() {
+      $DB = $this->get_write_pdo();
+
+      $filters = Utils::array_pick($this->attributes, self::$ATTRIBUTES);
+      SQLHelper::insert($DB, 'i_agreement', $filters);
+      $this->id = $this->attributes['id'] = SQLHelper::$lastInsertId;
+      return true;
   }
 }

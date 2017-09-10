@@ -16,6 +16,12 @@ use diy\service\Mailer;
 
 class AgreementController extends BaseController {
 
+  public function create() {
+      $attr = $this->get_post_data();
+
+
+  }
+
   public function get_list() {
     $pagesize = isset($_REQUEST['pagesize']) ? (int)$_REQUEST['pagesize'] : 100;
     $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
