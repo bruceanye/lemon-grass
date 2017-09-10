@@ -21,6 +21,7 @@ class Client extends Base {
         }
         $sql = "SELECT *
                 FROM `j_client`
+                WHERE `status`=0
                 GROUP BY `id`
                 $limit";
         $state = $DB->prepare($sql);

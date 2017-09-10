@@ -10,6 +10,7 @@ namespace diy\controller;
 
 use diy\model\ClientModel;
 use diy\service\Client;
+use SQLHelper;
 use Exception;
 
 
@@ -25,9 +26,42 @@ class ClientController extends BaseController {
         }
 
         $this->output(array(
-            'code' => 201,
+            'code' => 0,
             'msg' => '创建成功',
             'client' => $client->attributes,
+        ));
+    }
+
+    public function update($id, $attr = null) {
+        $attr = $attr ? $attr : $this->get_post_data();
+
+        $client = new ClientModel(['id' => $id]);
+        try {
+            $client->update_client($attr);
+        } catch (Exception $e) {
+            $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
+        }
+
+        $this->output([
+            'code' => 0,
+            'msg' => '修改信息成功',
+            'client' => $client->toJSON(),
+        ]);
+    }
+
+    public function delete($id) {
+        $attr = array('status' => 1);
+
+        $client = new ClientModel(['id' => $id]);
+        try {
+            $client->update_client($attr);
+        } catch (Exception $e) {
+            $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
+        }
+
+        $this->output(array(
+            'code' => 0,
+            'msg' => '删除成功'
         ));
     }
 
@@ -44,7 +78,7 @@ class ClientController extends BaseController {
             'list' => $result,
             'total' => 10,
             'options' => array(
-                'channel_types' => [1 => '中国', 2 => '外国'],
+                'types' => [1 => '中国', 2 => '外国'],
             )
         ));
     }

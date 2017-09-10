@@ -10,6 +10,7 @@ namespace diy\model;
 
 use diy\utils\Utils;
 use SQLHelper;
+use Exception;
 
 
 class JChannelModel extends Base {
@@ -23,5 +24,20 @@ class JChannelModel extends Base {
         SQLHelper::insert($DB, 'j_channel', $filters);
         $this->id = $this->attributes['id'] = SQLHelper::$lastInsertId;
         return true;
+    }
+
+    public function update_channel(array $attr = null) {
+        $attr = $this->validate($attr);
+        if (!$attr) {
+            return $this;
+        }
+
+        $DB = $this->get_write_pdo();
+        $result = SQLHelper::update($DB, 'j_channel', $attr, $this->id, false);
+        if ($result === false) {
+            throw new Exception('修改失败。', 11);
+        }
+        $this->attributes = array_merge($this->attributes, $attr);
+        return $this;
     }
 }

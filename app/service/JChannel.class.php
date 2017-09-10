@@ -20,6 +20,7 @@ class JChannel extends Base {
         }
         $sql = "SELECT *
                 FROM `j_channel`
+                WHERE `status` = 0
                 GROUP BY `id`
                 $limit";
         $state = $DB->prepare($sql);
