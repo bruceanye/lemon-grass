@@ -42,6 +42,16 @@ class Admin extends Base {
 
   const DEVELOPER_CS_MAIL = 'sheng.chen@dianjoy.com';
 
+  public function get_sales() {
+      $DB = $this->get_read_pdo();
+      $sql = "SELECT `id`, `NAME`
+              FROM `t_admin`
+              WHERE `permission`=1";
+      $state = $DB->prepare($sql);
+      $state->execute();
+      return $state->fetchAll(PDO::FETCH_KEY_PAIR);
+  }
+
   /**
    * 主要查找商务的地区信息
    * @param $id
