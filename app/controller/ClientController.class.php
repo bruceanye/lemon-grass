@@ -10,6 +10,7 @@ namespace diy\controller;
 
 use diy\model\ClientModel;
 use diy\service\Client;
+use diy\utils\Utils;
 use SQLHelper;
 use Exception;
 
@@ -68,15 +69,17 @@ class ClientController extends BaseController {
     public function get_list() {
         $pagesize = isset($_REQUEST['pagesize']) ? (int)$_REQUEST['pagesize'] : 20;
         $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
+        $filters = Utils::array_pick($_REQUEST, ['keyword']);
 
         $client = new Client();
-        $result = $client->get_clients($page, $pagesize);
+        $result = $client->get_clients($filters, $page, $pagesize);
+        $total = $client->get_total();
 
         $this->output(array(
             'code' => 0,
             'msg' => 'get',
             'list' => $result,
-            'total' => 10,
+            'total' => $total,
             'options' => array(
                 'types' => [1 => '中国', 2 => '外国'],
             )

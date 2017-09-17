@@ -281,7 +281,7 @@ class FileController extends BaseController {
     $path = isset( self::$up_path[ $type ] ) ? self::$up_path[ $type ] : 'upload/';
     $dir = $path . date( "Ym" ) . '/';
     if ( ! is_dir( UPLOAD_BASE . $dir ) ) {
-      mkdir( UPLOAD_BASE . $dir, 0777, true );
+//      mkdir( UPLOAD_BASE . $dir, 0777, true );
     }
     $ext = substr( $file_name, strrpos( $file_name, '.' ) );
     if ( strpos( $ext, 'php' ) !== false ) {
