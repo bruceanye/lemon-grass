@@ -2,28 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: chensheng
- * Date: 2017/9/16
- * Time: 下午4:47
+ * Date: 2017/9/24
+ * Time: 下午1:02
  */
 
 namespace diy\controller;
 
-use diy\model\JAgreementModel;
 use diy\service\Admin;
-use diy\service\JAgreement;
+use diy\model\JADModel;
+use diy\service\JAD;
 use diy\utils\Utils;
 use Exception;
 use SQLHelper;
 
 
-class JAgreementController extends BaseController {
+class JADController extends BaseController {
     public function create() {
         $attr = $this->get_post_data();
 
-
-        $agreement = new JAgreementModel($attr);
+        $ad = new JADModel($attr);
         try {
-            $agreement->save();
+            $ad->save();
         } catch ( Exception $e) {
             $this->exit_with_error($e->getCode(), $e->getMessage(), 400);
         }
@@ -31,16 +30,16 @@ class JAgreementController extends BaseController {
         $this->output(array(
             'code' => 0,
             'msg' => '创建成功',
-            'agreement' => $agreement->attributes,
+            'ad' => $ad->attributes,
         ));
     }
 
     public function update($id, $attr = null) {
         $attr = $attr ? $attr : $this->get_post_data();
 
-        $agreement = new JAgreementModel(['id' => $id]);
+        $ad = new JADModel(['id' => $id]);
         try {
-            $agreement->update_agreement($attr);
+            $ad->update_ad($attr);
         } catch (Exception $e) {
             $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
         }
@@ -48,16 +47,16 @@ class JAgreementController extends BaseController {
         $this->output([
             'code' => 0,
             'msg' => '修改信息成功',
-            'client' => $agreement->toJSON(),
+            'ad' => $ad->toJSON(),
         ]);
     }
 
     public function delete($id) {
         $attr = array('status' => 1);
 
-        $agreement = new JAgreementModel(['id' => $id]);
+        $ad = new JADModel(['id' => $id]);
         try {
-            $agreement->update_agreement($attr);
+            $ad->update_ad($attr);
         } catch (Exception $e) {
             $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
         }
@@ -73,22 +72,42 @@ class JAgreementController extends BaseController {
         $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
         $filters = Utils::array_pick($_REQUEST, ['keyword']);
 
-        $admin_service = new Admin();
-        $sales = $admin_service->get_sales();
+        $admin_service = new Admin;
+        $owners = $execute_owners = $admin_service->get_sales();
 
-        $agreement = new JAgreement();
-        $result = $agreement->get_agreements($filters, $page, $pagesize);
-        $total = $agreement->get_total();
+        $ad_service = new JAD();
+        $result = $ad_service->get_ads($filters, $page, $pagesize);
+        $total = $ad_service->get_total();
 
+        $cooperation_types1 = [
+            1 => '积分墙',
+            2 => '机刷',
+            3 => '评论',
+            4 => '下载量',
+            5 => 'CPC',
+            6 => 'CPT',
+            7 => 'CPD'
+        ];
+        $cooperation_types2 = [
+            8 => '注册',
+            9 => '成功放款',
+            10 => '返佣',
+            11 => '注册+返佣',
+            12 => '授信'
+        ];
         $this->output(array(
             'code' => 0,
             'msg' => 'get',
+            'owners' => $owners,
+            'execute_owners' => $execute_owners,
             'list' => $result,
-            'sales' => $sales,
             'total' => $total,
             'options' => array(
-                'types' => [1 => '甲方', 2 => '乙方'],
-                'sales' => $sales
+                'owners' => $owners,
+                'execute_owners' => $execute_owners,
+                'types' => [1 => '应用优化', 2 => '贷款平台'],
+                'cooperation_types1' => $cooperation_types1,
+                'cooperation_types2' => $cooperation_types2
             )
         ));
     }

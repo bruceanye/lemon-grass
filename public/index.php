@@ -40,6 +40,7 @@ if (Auth::is_cp()) {
   require '../router/invoice.php';
   require '../router/client.php';
   require '../router/j_channel.php';
+  require '../router/j_ad.php';
 
 
   AdminLogger::log($_SESSION['id'], AdminLogger::DIY);
