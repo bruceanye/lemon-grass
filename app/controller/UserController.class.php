@@ -46,15 +46,23 @@ class UserController extends BaseController {
         $this->exit_with_error(12, '新的密码不合规则，请重新输入。', 403);
       }
       $auth = new Auth();
-      if (!$auth->validate($_SESSION['email'], $data['oldpassword'], true)) {
+      if (!$auth->validate($_SESSION['user'], $data['oldpassword'], true)) {
         $this->exit_with_error(13, '旧密码不正确，请重新输入', 403);
       }
-      $data['password'] = $auth->encrypt($_SESSION['email'], $data['newpassword']);
+      $data['password'] = $auth->encrypt($_SESSION['user'], $data['newpassword']);
       $data = Utils::array_omit($data, 'oldpassword', 'newpassword', 'repassword');
     }
 
     $service = new User();
-    $check = $service->update_me($data);
+    $newData = null;
+    if ($data['fullname']) {
+        $newData['NAME'] = $data['fullname'];
+    }
+    if ($newData) {
+        $check = $service->update_me($newData);
+    } else {
+        $check = $service->update_me($data);
+    }
     if ($check) {
       $this->output([
         'code' => 0,

@@ -156,6 +156,6 @@ class User extends Base {
   public function update_me( $data ) {
     $me = $_SESSION['id'];
     $DB = $this->get_write_pdo();
-    return SQLHelper::update($DB, 't_diy_user', $data, ['id' => $me]);
+    return SQLHelper::update($DB, 't_admin', $data, ['id' => $me]);
   }
 }

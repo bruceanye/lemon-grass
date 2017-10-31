@@ -67,6 +67,13 @@ class JADController extends BaseController {
         ));
     }
 
+    public function get_ad() {
+        $this->output(array(
+           'code' => 0,
+            'msg' => 'success'
+        ));
+    }
+
     public function get_list() {
         $pagesize = isset($_REQUEST['pagesize']) ? (int)$_REQUEST['pagesize'] : 20;
         $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;

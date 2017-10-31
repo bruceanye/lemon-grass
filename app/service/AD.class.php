@@ -580,6 +580,23 @@ class AD extends Base {
     return $state->fetch(PDO::FETCH_ASSOC);
   }
 
+    public function get_ad_info_by_id_new($id, array $filters = null) {
+        $filters = $filters ? $filters : array();
+        if (array_key_exists('status', $filters)) {
+            $filters['status'] = ADModel::OFFLINE; // 下线广告
+            unset($filters['status']);
+        }
+        list($conditions, $params) = $this->parse_filter($filters, [ 'is_append' => true ] );
+        $sql = "SELECT `name`,`money`
+            FROM j_client_ad
+            WHERE id=:id $conditions";
+        $DB = $this->get_read_pdo();
+        $state = $DB->prepare($sql);
+        $params = array_merge($params, array(':id' => $id));
+        $state->execute($params);
+        return $state->fetch(PDO::FETCH_ASSOC);
+    }
+
   public function get_ad_channel_by_id($id) {
     $DB = $this->get_read_pdo();
 
