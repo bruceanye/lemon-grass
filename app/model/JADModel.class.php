@@ -14,7 +14,7 @@ use Exception;
 
 class JADModel extends Base {
     static $ATTRIBUTES_TYPE1 = array('type', 'name', 'cooperation_type', 'money', 'rate', 'link', 'agreement_id',
-         'online_time', 'owner', 'execute_owner','comment');
+         'online_time', 'offline_time', 'owner', 'execute_owner','comment');
     static $ATTRIBUTES_TYPE2 = array('type', 'name', 'cooperation_type', 'money', 'link', 'agreement_id',
          'online_time', 'owner', 'execute_owner','comment');
 

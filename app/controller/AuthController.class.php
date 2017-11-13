@@ -32,9 +32,9 @@ class AuthController extends BaseController {
     $password = trim($_POST['password']);
     $verify_code = trim($_POST['verifycode']);
 
-    if ($verify_code != $_SESSION['Checknum']) {
-      $this->exit_with_error(1, '验证码错误', 400);
-    }
+//    if ($verify_code != $_SESSION['Checknum']) {
+//      $this->exit_with_error(1, '验证码错误', 400);
+//    }
 
     if ($username == '' || $password == '') {
       $this->exit_with_error(2, '用户名或密码不能为空', 422);
