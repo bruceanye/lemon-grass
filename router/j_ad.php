@@ -19,3 +19,9 @@ Macaw::get(BASE . 'j_ad/(:any)', 'diy\controller\JADController@get_ad');
 Macaw::get(BASE . 'click/(:any)', 'diy\controller\JADTransferController@getList');
 Macaw::options(BASE . 'click/(:any)', 'diy\controller\JADTransferController@on_options');
 Macaw::post(BASE . 'click/(:any)', 'diy\controller\JADTransferController@record');
+
+Macaw::get(BASE . 'j_ad/market/(:any)', 'diy\controller\JADController@get_markets');
+Macaw::options(BASE . 'j_ad/market/(:any)/(:any)', 'diy\controller\JADController@on_options');
+Macaw::patch(BASE . 'j_ad/market/(:any)/(:any)', 'diy\controller\JADController@update_market');
+Macaw::delete(BASE . 'j_ad/market/(:any)/(:any)', 'diy\controller\JADController@delete_market');
+

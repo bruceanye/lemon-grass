@@ -74,6 +74,65 @@ class JADController extends BaseController {
         ));
     }
 
+    public function get_markets($id) {
+        $ad_service = new JAD();
+        $result = $ad_service->get_markets_by_adid($id);
+
+        $types = [
+            0 => 'iOS好评',
+            1 => '安卓-小米',
+            2 => '安卓-VIVO',
+            3 => '安卓-OPPO',
+            4 => '安卓-华为',
+            5 => '安卓-应用宝',
+            6 => '安卓-百度',
+            7 => '安卓-360',
+            8 => '安卓-魅族',
+            9 => '安卓-金立'
+        ];
+        $this->output(array(
+            'code' => 0,
+            'msg' => 'get',
+            'list' => $result,
+            'options' => array(
+                'types' => $types
+            )
+        ));
+    }
+
+    public function update_market($ad_id, $id, $attr = null) {
+        $attr = $attr ? $attr : $this->get_post_data();
+
+        $ad = new JADModel(['id' => $id]);
+        try {
+            $ad->update_market($attr);
+        } catch (Exception $e) {
+            $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
+        }
+
+        $this->output([
+            'code' => 0,
+            'msg' => '修改信息成功',
+            'ad' => $ad->toJSON(),
+        ]);
+    }
+
+    public function delete_market($ad_id, $id) {
+        $attr = array('status' => 1);
+
+        $ad = new JADModel(['id' => $id]);
+        try {
+            $ad->update_market($attr);
+        } catch (Exception $e) {
+            $this->exit_with_error($e->getCode(), $e->getMessage(), 400, SQLHelper::$info);
+        }
+
+        $this->output(array(
+            'code' => 0,
+            'msg' => '删除成功'
+        ));
+    }
+
     public function get_list() {
         $pagesize = isset($_REQUEST['pagesize']) ? (int)$_REQUEST['pagesize'] : 20;
         $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;

@@ -23,6 +23,14 @@ class JADModel extends Base {
         $DB = $this->get_write_pdo();
 
         $attr = $this->attributes;
+        $market_attr = [];
+
+        // 过滤market_type类型
+        if ($attr['market_type']) {
+            $market_attr['market_type']  = $attr['market_type'];
+            unset($attr['market_type']);
+        }
+
         if ($attr['type'] == 1) {
             $attr['cooperation_type'] = $attr['cooperation_type'][0];
             $filters = Utils::array_pick($attr, self::$ATTRIBUTES_TYPE1);
@@ -33,6 +41,19 @@ class JADModel extends Base {
         $filters['money'] = $filters['money'] * 100;
         SQLHelper::insert($DB, 'j_client_ad', $filters);
         $this->id = $this->attributes['id'] = SQLHelper::$lastInsertId;
+
+        // 插入j_ad_market
+        if ($market_attr['market_type']) {
+            foreach($market_attr['market_type'] as $key => $value) {
+                $item = array(
+                    'ad_id' => $this->id,
+                    'type' => $value,
+                    'price' => $attr['money'] * 100,
+                    'link' => $attr['link']
+                );
+                SQLHelper::insert($DB, 'j_ad_market', $item);
+            };
+        }
         return true;
     }
 
@@ -44,6 +65,16 @@ class JADModel extends Base {
 
         $DB = $this->get_write_pdo();
         $result = SQLHelper::update($DB, 'j_client_ad', $attr, $this->id, false);
+        if ($result === false) {
+            throw new Exception('修改失败。', 11);
+        }
+        $this->attributes = array_merge($this->attributes, $attr);
+        return $this;
+    }
+
+    public function update_market(array $attr = null) {
+        $DB = $this->get_write_pdo();
+        $result = SQLHelper::update($DB, 'j_ad_market', $attr, $this->id, false);
         if ($result === false) {
             throw new Exception('修改失败。', 11);
         }

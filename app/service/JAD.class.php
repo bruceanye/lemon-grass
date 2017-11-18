@@ -34,6 +34,18 @@ class JAD extends Base {
         return $clients;
     }
 
+    public function get_markets_by_adid($id) {
+        $DB = $this->get_read_pdo();
+
+        $sql = 'SELECT a.name, a.id AS ad_id, b.*
+                FROM `j_client_ad` AS a LEFT JOIN `j_ad_market` AS b ON a.`id`=b.`ad_id`
+                WHERE a.id=:ad_id AND b.status = 0';
+        $state = $DB->prepare($sql);
+        $state->execute([':ad_id' => $id]);
+        $result = $state->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function get_total() {
         $DB = $this->get_read_pdo();
 
