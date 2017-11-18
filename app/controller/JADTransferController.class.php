@@ -30,12 +30,46 @@ class JADTransferController extends BaseController {
         ));
     }
 
+    public function getMarketList($key) {
+        $jadTransfer = new JADTransfer();
+        $start = $_REQUEST['start'];
+        $end = $_REQUEST['end'];
+
+        $list = $jadTransfer->getClickMarketsByDate(array('market_id' => $key), $start, $end);
+        $this->output(array(
+            'code' => 0,
+            'msg' => 'ok',
+            'list' => $list,
+            'options' => array(
+                'feedbacks' => ADModel::$FEEDBACK,
+                'cycles' => ADModel::$CYCLE,
+            ),
+        ));
+    }
+
     public function record($param) {
         $data = $this->get_post_data();
 
         $jadTransfer = new JADTransfer();
         try {
             $jadTransfer->record($data, $param);
+        } catch (Exception $e) {
+            $this->exit_with_error($e->getCode(), $e->getMessage(), 401);
+        }
+
+        $this->output(array(
+            'code' => 0,
+            'msg' => 'ok',
+            'list' => $data
+        ));
+    }
+
+    public function recordMarket($param) {
+        $data = $this->get_post_data();
+
+        $jadTransfer = new JADTransfer();
+        try {
+            $jadTransfer->recordMarket($data, $param);
         } catch (Exception $e) {
             $this->exit_with_error($e->getCode(), $e->getMessage(), 401);
         }
