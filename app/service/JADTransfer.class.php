@@ -14,7 +14,7 @@ use Exception;
 
 
 class JADTransfer extends Base {
-    static $FIELD_CLICK = array('ad_id', 'nums', 'click_date', 'click_rmb');
+    static $FIELD_CLICK = array('ad_id', 'nums', 'quotes', 'click_date', 'click_rmb');
     const T_AD_CLICK = 't_ad_click';
 
     public function get_transfers_by_adid($ad_id) {
@@ -40,7 +40,7 @@ class JADTransfer extends Base {
         $DB = $this->get_read_pdo();
         list($conditions, $params) = $this->parse_filter(Utils::array_pick($filters, array('ad_id')));
         $conditions = $conditions ? $conditions . " AND `click_date`>='$start' AND `click_date`<='$end'" : "";
-        $sql = "SELECT `click_date`,`nums`,`click_rmb` AS `quote_rmb`
+        $sql = "SELECT `click_date`,`nums`,`quotes`,`click_rmb` AS `quote_rmb`
             FROM " . self::T_AD_CLICK . "
             WHERE $conditions
             GROUP BY `click_date`";
@@ -50,16 +50,31 @@ class JADTransfer extends Base {
 
         $quote_rmb = $adinfo['money'];
         $result = array();
+
+        // 汇总
+        $result_total = array(
+            'date' => '汇总',
+            'quote_rmb' => '/',
+            'nums' => 0,
+            'quotes' => 0,
+            'is_amount' => true
+        );
         for($stamp = strtotime($end); $stamp >= strtotime($start); $stamp -= 86400) {
             $date = date("Y-m-d", $stamp);
             $adClick = array(
                 'date' => $date,
-                'quote_rmb' => $clickStat[$date] ? (int)$clickStat[$date]['quote_rmb'] : $quote_rmb,
+                'quote_rmb' => ($clickStat[$date] ? (int)$clickStat[$date]['quote_rmb'] : $quote_rmb) / 100,
                 'nums' => $clickStat[$date] ? (int)$clickStat[$date]['nums'] : 0, // 如果没有录数，采用系统默认的
+                'quotes' => $clickStat[$date] ? (int)$clickStat[$date]['quotes'] : 0,
             );
+            $result_total['nums'] = $result_total['nums'] + $adClick['nums'];
+            $result_total['quotes'] = $result_total['quotes'] + $adClick['quotes'];
             $result[] = $adClick;
         }
         $result = array_reverse($result);
+
+        // 总计的数据加到末尾
+        $result[] = $result_total;
         return $result;
     }
 
@@ -72,6 +87,7 @@ class JADTransfer extends Base {
             } else if (!isset($value['ad_id'])) {
                 $value['ad_id'] = $param;
             }
+            $value['click_rmb'] = $value['click_rmb'] * 100;
             $ad_operation_service->add($value['ad_id'], 'click', 'insert', $value['click_date'] . ', ' . $value['nums'] . ', ' . $value['click_rmb']);
             $data[$key] = Utils::array_pick($value, self::$FIELD_CLICK);
             $data[$key]['click_time'] = date("Y-m-d H:i:s");
